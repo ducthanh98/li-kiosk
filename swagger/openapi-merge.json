@@ -1,0 +1,11 @@
+{
+  "inputs": [
+    {
+      "inputURL": "https://api.hecgroup.vn/swagger/v1/swagger.json"
+    },
+    {
+      "inputURL": "https://api.hecgroup.vn/swagger/v1-cms/swagger.json"
+    }
+  ],
+  "output": "./output.swagger.json"
+}
