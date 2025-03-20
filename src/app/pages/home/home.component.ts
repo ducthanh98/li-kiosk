@@ -1,5 +1,6 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, Provider} from '@angular/core';
 import * as faceapi from 'face-api.js';
+import {LoggerService} from "../../core/services/logger.service";
 
 
 @Component({
@@ -7,9 +8,12 @@ import * as faceapi from 'face-api.js';
   standalone: true,
   imports: [],
   templateUrl: './home.component.html',
-  styleUrl: './home.component.scss'
+  styleUrl: './home.component.scss',
+  providers:[LoggerService as Provider]
 })
 export class HomeComponent implements OnInit{
+  constructor(private  loggerService: LoggerService) {
+  }
 
   ngOnInit() {
     this.loadModels();
@@ -17,6 +21,8 @@ export class HomeComponent implements OnInit{
 
   async loadModels(){
     await faceapi.nets.tinyFaceDetector.loadFromUri('models');
+    this.loggerService.info("Load model successfully")
+
   }
 
   async startCamera() {

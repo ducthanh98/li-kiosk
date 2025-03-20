@@ -1,6 +1,6 @@
-import { app, BrowserWindow } from "electron";
+import { app, BrowserWindow, ipcMain } from "electron";
 import path from 'path';
-
+import logger from "./logger";
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require("electron-squirrel-startup")) {
     app.quit();
@@ -27,7 +27,16 @@ const createWindow = (): void => {
 
     mainWindow.loadURL(startURL);
 
-};
+    // Lắng nghe sự kiện log từ renderer process
+    ipcMain.on('log-message', (event, level,message) => {
+        if(logger[level]){
+            logger[level](message);
+        } else {
+            logger.info(message);
+        }
+    });
+
+}
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.

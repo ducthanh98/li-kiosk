@@ -3,7 +3,7 @@
 
 import { contextBridge, ipcRenderer } from "electron";
 
-contextBridge.exposeInMainWorld('electron', {
+contextBridge.exposeInMainWorld('electronAPI', {
     send: (channel: string, data: any) => {
         ipcRenderer.send(channel, data);
     },
@@ -17,11 +17,5 @@ contextBridge.exposeInMainWorld('electron', {
     removeListener: (channel: string, func: (...args: any[]) => void) => {
         ipcRenderer.removeListener(channel, func);
     },
+    logMessage: (level,message) => ipcRenderer.send('log-message', level ,message)
 })
-
-
-contextBridge.exposeInMainWorld('electronAPI', {
-    getCameraStream: async () => {
-        return await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
-    }
-});

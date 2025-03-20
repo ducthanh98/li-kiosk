@@ -3,7 +3,8 @@ export {};
 declare global {
     interface Window {
         electronAPI: {
-            getCameraStream: () => Promise<MediaStream>;
+            logMessage: (level,message) => void;
+
         };
     }
 }
