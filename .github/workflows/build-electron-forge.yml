@@ -10,7 +10,7 @@ jobs:
   build-on-windows:
     runs-on: windows-latest
     steps:
-      - uses: actions/upload-pages-artifact@v3
+      - uses: actions/checkout@v4
 
       - name: Setup Node.js
         uses: actions/setup-node@v3
